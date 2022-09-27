@@ -4,6 +4,4 @@ metadata:
   labels:
     kubernetes.io/metadata.name: dev-team-a
   name: dev-team-a
-spec:
-  finalizers:
-  - kubernetes
+spec: {}
