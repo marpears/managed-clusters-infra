@@ -1,2 +1,5 @@
 bases:
 - ../../base
+resources:
+- namespaces/dev-team-a/dev-team-a-rolebinding.yaml
+- namespaces/dev-team-a/dev-team-a.yaml
