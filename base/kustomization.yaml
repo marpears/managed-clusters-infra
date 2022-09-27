@@ -1,2 +1,3 @@
 resources:
-- oauth.yaml
+- oauth/oauth.yaml
+- oauth/secret.yaml
