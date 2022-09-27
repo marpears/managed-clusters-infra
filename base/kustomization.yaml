@@ -1,3 +1,4 @@
 resources:
 - oauth/oauth.yaml
-- oauth/secret.yaml
+- oauth/openid-client-secret.yaml
+- oauth/v4-0-config-user-idp-0-client-secret.yaml 
