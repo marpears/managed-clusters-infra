@@ -23,5 +23,5 @@ spec:
       clientSecret:
         name: openid-client-secret-4w89h
       extraScopes: []
-      issuer: https://sausingers.auth.eu-west-2.amazoncognito.com/oauth2/authorize
+      issuer: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_kiHTZogat
     type: OpenID
