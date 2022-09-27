@@ -1,7 +1,5 @@
 apiVersion: project.openshift.io/v1
 kind: Project
 metadata:
-  labels:
-    kubernetes.io/metadata.name: dev-team-a
   name: dev-team-a
 spec: {}
