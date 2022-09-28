@@ -3,5 +3,5 @@ bases:
 resources:
 - namespaces/dev-team-a/dev-team-a-rolebinding.yaml
 - namespaces/dev-team-a/dev-team-a-namespace.yaml
-- namespaces/dev-team-a/dev-team-b-namespace.yaml
-- namespaces/dev-team-a/dev-team-a-rolebinding.yaml
+- namespaces/dev-team-b/dev-team-b-namespace.yaml
+- namespaces/dev-team-b/dev-team-a-rolebinding.yaml
