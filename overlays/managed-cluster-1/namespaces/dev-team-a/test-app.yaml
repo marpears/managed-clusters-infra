@@ -1,0 +1,163 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: test-app
+      app.kubernetes.io/component: test-app
+      app.kubernetes.io/instance: test-app
+    name: nodejs-16-minimal
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: registry.access.redhat.com/ubi8/nodejs-16-minimal:latest
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/ubi8/nodejs-16-minimal:latest
+      generation: null
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: test-app
+      app.kubernetes.io/component: test-app
+      app.kubernetes.io/instance: test-app
+    name: test-app
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: ""
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: test-app
+      app.kubernetes.io/component: test-app
+      app.kubernetes.io/instance: test-app
+    name: test-app
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: test-app:latest
+    postCommit: {}
+    resources: {}
+    source:
+      git:
+        uri: https://github.com/nodeshift-starters/devfile-sample.git
+      type: Git
+    strategy:
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: nodejs-16-minimal:latest
+      type: Docker
+    triggers:
+    - github:
+        secret: EKYDctuLgPIyQZ1N-wfD
+      type: GitHub
+    - generic:
+        secret: HdjraByZwxd1JtkuRf8p
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"test-app:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"test-app\")].image"}]'
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: test-app
+      app.kubernetes.io/component: test-app
+      app.kubernetes.io/instance: test-app
+    name: test-app
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: test-app
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deployment: test-app
+      spec:
+        containers:
+        - image: ' '
+          name: test-app
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: test-app
+      app.kubernetes.io/component: test-app
+      app.kubernetes.io/instance: test-app
+    name: test-app
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 3001
+    selector:
+      deployment: test-app
+  status:
+    loadBalancer: {}
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    labels:
+      app: test-app
+      app.kubernetes.io/component: test-app
+      app.kubernetes.io/instance: test-app
+    name: test-app
+    namespace: dev-team-a
+  spec:
+    host: test-app-dev-team-a.apps.managed-cluster-1.sandbox1156.opentlc.com
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: test-app
+      weight: 100
+    wildcardPolicy: None
+kind: List
+metadata: {}

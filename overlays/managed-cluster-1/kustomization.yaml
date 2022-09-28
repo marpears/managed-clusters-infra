@@ -2,4 +2,5 @@ bases:
 - ../../base
 resources:
 - namespaces/dev-team-a/dev-team-a-rolebinding.yaml
-- namespaces/dev-team-a/dev-team-a.yaml
+- namespaces/dev-team-a/dev-team-a-namespace.yaml
+- namespaces/dev-team-a/test-app.yaml
